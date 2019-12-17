@@ -1,0 +1,168 @@
+﻿@model ComfortStay.Models.SearchModel
+@{
+    ViewData["Title"] = "Hotel Search Page";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport" />
+    <title>Hotel Finder</title>
+    <link href="@Url.Content("~/css/roboto.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/css/materialicon.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/css/bootstrap.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/css/bootstrap-select.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/css/waves.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/css/animate.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/css/noty.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/css/style.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/css/loader.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/css/themes/all-themes.css")" rel="stylesheet" />
+</head>
+<body class="theme-red">
+    @*Overlay For Sidebars*@
+    <div class="overlay"></div>
+    @*#END# Overlay For Sidebars*@
+    @*Top Bar*@
+    <nav class="navbar">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a href="javascript:void(0);" class="bars"></a>
+                <a class="navbar-brand" href="Home">Hotel Finder</a>
+            </div>
+        </div>
+    </nav>
+    @*#Top Bar*@
+    <section>
+        @*Left Sidebar*@
+        <aside id="leftsidebar" class="sidebar">
+            @*User Info*@
+            <div class="user-info">
+                <div class="image">
+                    <img src="@Url.Content("~/images/user.png")" width="48" height="48" alt="User" />
+                </div>
+                <div class="info-container">
+                    <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Hotel Finder</div>
+                </div>
+            </div>
+            @*#User Info*@
+            @*Menu*@
+            <div class="menu">
+                <ul class="list">
+                    <li class="header">MAIN NAVIGATION</li>
+                    <li class="active">
+                        <a href="@(Url.Action("Index", "HotelSearch", new { area = "" }))">
+                            <i class="material-icons">hotel</i>
+                            <span>Search Hotels</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            @*#Menu*@
+            @*Footer*@
+            <div class="legal">
+                <div class="copyright">
+                    &copy; 2019 <a href="javascript:void(0);">CheapAwesomeTravel</a>
+                </div>
+                <div class="version">
+                    <b>Version: </b>1.0.0
+                </div>
+            </div>
+            @*#Footer*@
+        </aside>
+        @*#END# Left Sidebar*@
+    </section>
+    <form asp-action="index" method="post" class="form-main  form-inline nofloat-xs pull-right pull-left-sm">
+
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row clearfix">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="card">
+                            <div class="header">
+                                <h2>
+                                    HOTELS
+                                    <small>Search hotels by location and night hault basis.</small>
+                                </h2>
+                            </div>
+                            <div class="body">
+                                <form asp-action="Index" method="post" class="form-main  form-inline nofloat-xs pull-right pull-left-sm">
+                                    <div class="form-group form-input-fields form-group-lg has-feedback">
+                                        <label class="sr-only" for="search">Search</label>
+
+                                        <div class="input-group">
+                                            <select class="custom-select form-control" asp-for="DestinationId" required>
+                                                <option selected value="">Select Destination</option>
+                                                <option value="279">India</option>
+                                                <option value="1419">Dubai</option>
+                                            </select>
+                                        </div>
+                                        <div class="input-group">
+                                            <input type="number" min="1" asp-for="Nights" class="form-control" placeholder="Nights" required>
+                                        </div>
+                                        <button type="submit" class="btn btn-lg btn-success btn-submit">
+                                            <span class="glyphicon glyphicon-search" aria-hidden="true"></span> Search
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="body table-responsive">
+                                <table class="table">
+                                    <thead class="text-danger">
+                                        <tr>
+                                            <th scope="col">Board Type</th>
+                                            <th scope="col">Hotel Name</th>
+                                            <th scope="col">Rate Type</th>
+                                            <th scope="col">Base Price</th>
+                                            <th scope="col">Actual Price</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @{
+                                            var resultSet = ViewData["ResultSet"] as ComfortStay.Repository.SearchResponseMessage;
+                                        }
+                                        @if (resultSet != null && resultSet.SearchDetails.Any())
+                                        {
+                                            @foreach (var hotel in resultSet.SearchDetails)
+                                            {
+                                                <tr>
+                                                    <td>@hotel.BoardType</td>
+                                                    <td>@hotel.HotelName</td>
+                                                    <td>@hotel.RateType</td>
+                                                    <td>@hotel.BasePrice</td>
+                                                    <td>@hotel.ActualPrice</td>
+                                                </tr>
+                                            }
+                                        }
+                                        else if (resultSet != null)
+                                        {
+                                            <tr>
+                                                <td colspan="5" class="text-danger">No data found</td>
+                                            </tr>
+                                        }
+                                        else { }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </section>>
+    </form>
+
+
+    <script src="@Url.Content("~/Scripts/jquery-2.1.1.js")"></script>
+    <script src="@Url.Content("~/Scripts/bootstrap.js")"></script>
+    <script src="@Url.Content("~/Scripts/waves.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.blockUI.js")"></script>
+    <script src="@Url.Content("~/Scripts/noty.js")"></script>
+    <script src="@Url.Content("~/Scripts/common.js")"></script>
+    <script src="@Url.Content("~/Scripts/other/jquery.slimscroll.js")"></script>
+    <script src="@Url.Content("~/Scripts/other/bootstrap-select.js")"></script>
+    <script src="@Url.Content("~/Scripts/other/admin.js")"></script>
+    <script src="@Url.Content("~/Scripts/other/demo.js")"></script>
+    <script src="@Url.Content("~/Scripts/other/tooltips-popovers.js")"></script>
+
+</body>

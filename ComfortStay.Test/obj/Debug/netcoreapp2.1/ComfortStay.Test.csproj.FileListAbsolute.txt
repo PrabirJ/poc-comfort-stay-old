@@ -1,0 +1,4 @@
+C:\Users\589913\Desktop\WebBeds_Prabir\ComfortStay\ComfortStay.Test\obj\Debug\netcoreapp2.1\ComfortStay.Test.csprojAssemblyReference.cache
+C:\Users\589913\Desktop\WebBeds_Prabir\ComfortStay\ComfortStay.Test\obj\Debug\netcoreapp2.1\ComfortStay.Test.csproj.CoreCompileInputs.cache
+C:\Users\589913\Desktop\WebBeds_Prabir\ComfortStay\ComfortStay.Test\obj\Debug\netcoreapp2.1\ComfortStay.Test.AssemblyInfoInputs.cache
+C:\Users\589913\Desktop\WebBeds_Prabir\ComfortStay\ComfortStay.Test\obj\Debug\netcoreapp2.1\ComfortStay.Test.AssemblyInfo.cs
